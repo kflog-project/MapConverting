@@ -1,0 +1,39 @@
+
+  ## ##  ####  ##
+  ####   ##    ##
+  ###    ###   ##     #####  #####
+  ####   ##    ##     ## ##  ## ##
+  ## ##  ##    #####  #####  #####
+                                ##
+                               ###
+
+  (c) Florian Ehinger 5.4.2004
+
+
+
+The tools in this repository are used to create KFLog maps from different
+sources:
+
+  - dafifImport:
+       this converter is used to create airspaces and airports out of the
+       DAFIF database from the US airforce.
+
+       a mysql database is used to hold the imported data
+
+  - GNS:
+       this converter creates citynames and other pointdata from the GNS
+       database
+
+       a mysql database is used to hold the imported data
+
+  - Grass:
+       this converter creates the isolines with the help of GRASS from
+       the GLOBE raster data.
+
+  - vpf-converter:
+       several tools which generates KFLog maps out of the already imported
+       VMap0 data
+
+  - vpf-importer:
+       imports the Vmap0 data into an ascii readable format
+

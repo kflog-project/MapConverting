@@ -1,0 +1,119 @@
+#! /bin/bash
+
+#
+#  Script zum aktualisieren der KFLog Luftraumdaten
+#
+#  holt die aktuelle DAFIF Datenbank und konvertiert die Daten ins KFLog Format
+#
+#  (c) Florian Ehinger, 28.09.1003
+#
+#
+
+#
+# Aktuelles Datum
+#
+ID=$(date +%y%m)
+
+
+# echo "$ID"
+
+mkdir -p /data/KartenDaten/DAFIF_6/
+cd /data/KartenDaten/DAFIF_6/
+
+
+#
+# schauen, ob aktuelles DAFIF schon vorhanden ist
+#
+#
+test -e DAFIF_$ID.ZIP && {
+  #echo "aktueller Monat schon vorhanden"
+
+  #  Nächsten Monat holen
+  ID=$(date --date='+1 Month' +%y%m)
+
+  # Falls nächster Monat auch schon vorhanden -> beenden
+  test -e DAFIF_$ID.ZIP && {
+    #echo "nächster Monat auch schon vorhanden"
+    exit 0
+  }
+}
+
+
+
+#
+# Versions Datei holen
+VERSION_FILE='_ed6/VERSION.ZIP'
+wget -q ftp://164.214.2.112/dafif/dafif_$ID$VERSION_FILE
+unzip VERSION.ZIP
+
+
+
+# cp DAFIF.ZIP DAFIF_$ID.ZIP
+
+# rm DAFIF.ZIP
+
+rm -fr Dafif/
+
+# echo "Hole aktuelles Dafif vom Server"
+
+REST='_ed6/DAFIF.ZIP'
+
+#echo "runterladen von ftp://164.214.2.112/dafif/dafif_$ID$REST"
+wget -q ftp://164.214.2.112/dafif/dafif_$ID$REST
+
+test ! -e DAFIF.ZIP &&  exit 0
+
+mv DAFIF.ZIP DAFIF_$ID.ZIP
+
+# echo "fertig!!"
+
+# echo "entpacken"
+unzip DAFIF_$ID.ZIP
+# echo "fertig"
+
+
+cd /home/kflog/dafifImport
+
+
+mkdir -p /data/KartenDaten/KFLog-Karten/dafif_out/
+#echo "importieren"
+./dafifImportMain.pl > import.log
+
+#echo "Lufträume erstellen"
+
+# alte Dateien löschen
+rm -f /data/KartenDaten/KFLog-Karten/dafif_out/*.out
+
+./dataConvert.pl > convert.log
+
+#echo "in Binär konvertieren"
+# rm /opt/kde2/share/apps/kflog/mapdata/airspace/*.kfl
+
+mkdir -p /opt/kde2/share/apps/kflog/mapdata/airspace/
+./airspace-bin /data/KartenDaten/KFLog-Karten/dafif_out/* 2&> binär.log
+
+### Jetzt noch die Dateien ins FTP Verzeichnis kopieren ###
+# zur Zeit gelinkt!!
+# rm -f /opt/htdocs/kflog/maproom/data/airspace/*.kfl
+
+#echo "lösche Dafif Verzeichnis"
+rm -fr /data/KartenDaten/DAFIF_6/Dafif
+
+#
+# komische 2er Datei löschen
+#
+rm -f /opt/kde2/share/apps/kflog/mapdata/airspace/2_airspace.kfl
+
+cp /opt/kde2/share/apps/kflog/mapdata/airspace/*.kfl /opt/htdocs/kflog/maproom/data/airspace/
+
+#
+# Versions Datei in Web Verzeichnis kopieren
+#
+mv -f /data/KartenDaten/DAFIF_6/Version /opt/htdocs/kflog/maproom/data/airspace/
+rm -f /data/KartenDaten/DAFIF_6/VERSION.ZIP
+
+
+echo "Hat hoffentlich alles geklappt" | mail -s "DAFIF-Import $ID" -c florian@kflog.org heiner@kflog.org
+#	-a /home/kflog/dafifImport/import.log -a /home/kflog/dafifImport/convert.log -a /home/kflog/dafifImport/binär.log
+
+### UND FERTIG !!! ###

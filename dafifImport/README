@@ -1,0 +1,20 @@
+##
+##
+##     Wie Dafif Datenbank aufarbeiten?
+##
+
+- Dafif Edition 6 herunterladen
+  (Dafif.zip)
+
+- unter /data/KartenDaten/DAFIF_6/ entpacken
+
+- Datenbank Tabellen bis auf "Country" leeren
+
+- dafifImportMain.pl aufrufen
+ ggf. Im Programm ändern was alles importiert werden soll.
+
+- dataConvert.pl aufrufen.
+
+-  airspace-bin /data/KartenDaten/KFLog-Karten/dafif_out/* aufrufen
+
+==> Fertige Dateien unter /opt/kde2/share/apps/kflog/...!!

@@ -1,0 +1,31 @@
+#
+# Aufbereiten von VMap0 Daten für KFLog
+#
+
+- Entsprechende Vmap Daten von CD benützen (4 CD's)
+- Mit vpf_importer in Ascii umwandeln
+	u.U. vpf_importer bearbeiten (ID)
+	
+	Es können Probleme bei manchen Coverages auftreten
+
+((	ID immer eins hochzählen
+	bei wiedrholtem Aufruf ID Datei mit id_sh erstellen ))
+
+- mit vmap_kacheln die Daten Kacheln
+
+- u.U. mit kacheln_zusammenfügen Kacheln mergen, dazu müssen
+	alle benötigten Kacheln als dummy-Dateien existieren!
+	die Dateien können automatisch nach Bearbeitung von kacheln_zusammenfügen
+	geleert werden!
+
+- map-bin aurufen!
+  Parameter: Dateiliste mit den AsciiDateien übergeben.
+
+  Das Verzeichnis /data/KartenDaten/KFLog-Karten/bin_maps/ muss existieren!! Hier werden
+  die Binärdaten hinein geschrieben.
+
+  Unter Umständen muss die Format_ID in map-bin.cpp aktualisiert werden.
+
+
+
+

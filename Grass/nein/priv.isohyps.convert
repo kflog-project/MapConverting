@@ -1,0 +1,217 @@
+#! /usr/bin/tclsh		
+#
+#
+# NAME
+#
+#        priv.isohyps.convert
+#
+#
+# SYNTAX
+#
+#        priv.isohyps.convert input=<Dateiname> [min=<minLänge>]
+#
+#
+# BESCHREIBUNG
+#
+#        Das Script liest exportierte Vektordateien, die Höhenlinien enthalten,
+#        ein und konvertiert die Positionsangaben von Grad nach 1/2 Bogenminuten. Der
+#        übergebene <Dateiname> bezeichnet die Vektordatei.
+#
+#        Das Script teilt die Zieldatei so auf, dass zu kleine Elemente (kleiner als
+#        "minLänge") in einer extra Datei landen. Wird "minLänge" nicht angegeben,
+#        wird eine Länge von 7 Punkten verwendet. Eine Angabe von 0 führt dazu, dass
+#        alle gefundenen Höhenlinien in der Hauptdatei landen.
+#
+#        Der Name der Zieldatei(en) wird anhand des Grundnamens der Eingangsdatei
+#        bestimmt. Die verwendete Endung ist ".iso"
+#
+#
+# UMGEBUNG
+#
+#        LOCATION
+#                Die Variable $LOCATION enthält den Pfad zu der jeweils aktuellen
+#                Grass-Location, in der die Eingangsdateien gesucht werden.
+#
+#        LOC_TARGET
+#                $LOC_TARGET enthält das Verzeichnis, in dem die Zieldateien
+#                erzeugt werden. Dieses Verzeichnis muss ein Unterverzeichnis
+#                "small" enthalten, in das die Dateien mit den "kleinen" Elementen
+#                geschrieben werden
+#
+#
+# DATEIEN
+#
+#        Das Script erwartet, dass zwei Dateien existieren:
+#
+#        $LOCATION/dig_ascii/<Name> 
+#                enthält die exportierten Höhenlinien
+#
+#        $LOCATION/dig_att/<Name>
+#                enthält die Höhenangabe. Das Script erwartet für jede Höhenstufe
+#                eine Datei. Die Höhenangabe wird nur eingelesen, um zu garantieren,
+#                dass die korrekte Höhe verwendet wird.
+#
+#
+# FEHLER
+#
+#        Wenn nicht genügend Plattenplatz zur Verfügung steht, ist das Verhalten
+#        unbekannt.
+#
+#        Es wird davon ausgegangen, dass die entsprechenden Verzeichnisse existieren
+#        und die Rechte korrekt sind.
+#
+#        Formatfehler in den Eigabedateien werden nicht geprüft oder erkannt. Das
+#        Verhalten ist in diesem Fall ebenfalls unbekannt.
+#
+#
+
+#
+# TODO
+#
+#        Soll das Script protokollieren, was es tut? (eventuell als Option???)
+#
+#
+
+if {[lsearch [array names env] "LOCATION"] == -1} {
+    puts "\$LOCATION nicht definiert"
+    # Mit Fehlercode beenden
+    exit 1
+}
+
+if {[lsearch [array names env] "LOC_TARGET"] == -1} {
+    puts "\$LOC_TARGET nicht definiert"
+    # Mit Fehlercode beenden
+    exit 1
+}
+
+set baseFileName 0
+set minLaenge 7
+
+foreach el $argv {
+    set arg [split $el "="]
+    if {[lindex $arg 0] == "input"} {
+	set baseFileName [lindex $arg 1]
+    } elseif {[lindex $arg 0] == "min"} {
+	set minLaenge [lindex $arg 1]
+    }
+}
+
+if {$baseFileName == 0} {
+    puts "Kein Dateiname angegeben ..."
+    # Mit Fehlercode beenden
+    exit 1
+}
+
+set locationPath $env(LOCATION)
+set locTargetPath $env(LOC_TARGET)
+
+puts $baseFileName
+set inFileName "$locationPath/dig_ascii/$baseFileName"
+set attFileName "$locationPath/dig_att/$baseFileName"
+
+#set outFileName [file rootname [lindex $argv 0]].iso
+
+set outFileName "$baseFileName.iso"
+
+if ![file exists $inFileName] {
+    puts "Höhenlinien-Datei konnte nicht gefunden werden:\n    $inFileName"
+    # Mit Fehlercode beenden
+    exit 1
+}
+
+if ![file exists $attFileName] {
+    puts "Attribut-Datei konnte nicht gefunden werden:\n    $attFileName"
+   # Mit Fehlercode beenden
+    exit 1
+}
+
+# Öffnen der Dateien
+set inFile [ open $inFileName r ]
+set attFile [ open $attFileName r ]
+set bigOutFile [ open "$locTargetPath/$outFileName" w ]
+set smallOutFile [ open "$locTargetPath/small/$outFileName" w ]
+
+puts "$locTargetPath/$outFileName"
+puts "$locTargetPath/small/$outFileName"
+
+# Einlesen und Abspeichern der Höhe
+gets $attFile zeile
+puts $smallOutFile "HOEHE=[lindex $zeile end]"
+puts $bigOutFile "HOEHE=[lindex $zeile end]"
+
+set isBigObject 0
+set isSmallObject 0
+
+## fürs Kacheln
+set is_in 0
+set is_out 0
+set w_grenz 9
+set o_grenz 10
+set s_grenz 49
+set n_grenz 51
+
+set outFile $bigOutFile
+
+while {[gets $inFile zeile] >= 0} {
+    if {[lindex $zeile 0] == "WEST" || [lindex $zeile 0] == "EAST" ||
+	[lindex $zeile 0] == "SOUTH" || [lindex $zeile 0] == "NORTH"} {
+	puts $bigOutFile "[lindex $zeile 0]=[lindex $zeile 2]"
+	puts $smallOutFile "[lindex $zeile 0]=[lindex $zeile 2]"
+    } elseif [regexp {^[L]} $zeile] {
+	if {[lindex $zeile 1 ] < $minLaenge} {
+	    set outFile $smallOutFile
+	    if {$isSmallObject == 1} {
+		puts $outFile "\[END\]"
+	    } else {
+		set isSmallObject 1
+	    }
+	} else {
+	    set outFile $bigOutFile
+	    if {$isBigObject == 1} {
+		puts $outFile "\[END\]"
+	    } else {
+		set isBigObject 1
+	    }
+	}
+
+	puts $outFile "\[NEW\]"
+
+    } elseif [regexp {^ [1-9]} $zeile] {
+	# Die Positionsangabe muss konvertiert werden ...
+	#     Die Angaben liegen in Grad vor, gebraucht werden Bogenminuten
+	#
+	set latitude [expr round([lindex $zeile 0] * 60 * 10000)]
+	set longitude [expr round([lindex $zeile 1] * 60 * 10000)]
+
+	#Kacheln
+	#
+	#
+	if {($longitude < $w_grenz || $longitude > $o_grenz) || 
+	    ($latitude < $s_grenz || $latidue > $n_grenz)} {
+	    
+	    if {$is_out == 1} {
+		puts $outFile "$latitude_b $longitude_b"
+		set is_out 0
+	    } else {
+		puts $outFile "$latitude $longitude"
+	    }
+	    set is_in 1
+	} else {
+	    #Auserhalb der Kachel
+	    if {$is_in == 1} {
+		puts $outfile "$latitude $longitude"
+		set is_in 0
+	    }
+	    set is_out 1
+	}
+	set latitude_b $latitude
+	set longitude_b $longitude	
+    }
+}
+
+# Das letzte Objekt muss in beiden Dateien noch beendet werden
+puts $bigOutFile "\[END\]"
+puts $smallOutFile "\[END\]"
+
+# Alles ist korrekt gelaufen :-)
+exit 0

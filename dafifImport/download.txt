@@ -1,0 +1,1 @@
+wget ftp://164.214.2.112/dafif/dafif_0213_ed6/DAFIF.ZIP
