@@ -13,10 +13,12 @@
 
 - mit vmap_kacheln die Daten Kacheln
 
-- u.U. mit kacheln_zusammenfügen Kacheln mergen, dazu müssen
-	alle benötigten Kacheln als dummy-Dateien existieren!
-	die Dateien können automatisch nach Bearbeitung von kacheln_zusammenfügen
-	geleert werden!
+- alle Elementypen liegen nun gekachelt in unterschiedlichen Verzeichnissen vor
+   daher müssen sie nun noch mit kacheln_zusammenfügen Kacheln mergen, dazu müssen
+   alle benötigten Kacheln als dummy-Dateien existieren!
+   die Dateien können automatisch nach Bearbeitung von kacheln_zusammenfügen
+   geleert werden!
+
 
 - map-bin aurufen!
   Parameter: Dateiliste mit den AsciiDateien übergeben.

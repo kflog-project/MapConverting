@@ -729,6 +729,7 @@ int main(int argc, char* argv[])
 {
   if(argc != 3)
     {
+      warning("Creates tiles out of the already in the kflog-ascii format converted vmap data");
       warning("Usage: %s <vpf_file> <output_dir>", argv[0]);
       return 1;
     }

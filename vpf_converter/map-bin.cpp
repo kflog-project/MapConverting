@@ -3,6 +3,7 @@
  *
  */
 
+
 #include <iostream.h>
 #include <stdlib.h>
 
@@ -15,6 +16,9 @@
 #include <qdatastream.h>
 
 #include <resource.h>
+
+
+#define DEBUG 0
 
 int eins = 0, zwei = 0;
 
@@ -34,6 +38,8 @@ void readFile(QString inFileName, Q_UINT16 SecNumber)
   unsigned int length = 0;
 
   outFileName.sprintf("/data/KartenDaten/KFLog-Karten/bin_maps/%c_%.5d.kfl", typID, SecNumber);
+  
+  if(DEBUG) warning("%c_%.5d.kfl", typID, SecNumber);
 
 //  QFile inFile("/data/KartenDaten/KFLog-Karten/Gesamt/" + inFileName + ".out");
   QFile inFile(inFileName);
@@ -187,6 +193,7 @@ void readFile(QString inFileName, Q_UINT16 SecNumber)
 		  switch (typ)
 		    {
 		    case CITY:
+		      totalCity++;
 		    case LAKE:
 		    case LAKE_T:
 		    case GLACIER:
@@ -288,26 +295,28 @@ void readFile(QString inFileName, Q_UINT16 SecNumber)
         }
     }
 
-/*
-  warning("Elemente:");
-  warning("Straßen:    %d", totalRoad);
+
+    if(DEBUG)
+    {
+      warning("Elemente:");
+      warning("Straßen:    %d", totalRoad);
   warning("Autobahnen: %d", totalHighway);
   warning("Flüsse:     %d", totalRiver);
   warning("Kanäle:     %d", totalCanal);
   warning("Seen:       %d", totalLake);
   warning("Städte:     %d", totalCity);
   warning("\nKurze Elemente: %d von %d",smallItem,totalItem);
-*/
 
-/*
+
+
   warning("Kurze Elemente:");
   warning("   %d von %d Strassen", smallRoad, totalRoad);
   warning("   %d von %d Eisenbahnen", smallRail, totalRail);
   warning("   %d von %d Flüssen", smallRiver, totalRiver);
   warning("   %d von %d Seen", smallLake, totalLake);
   warning("   %d von %d Städten", smallCity, totalCity);
-*/
 
+    }
 }
 
 
