@@ -1,0 +1,205 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>GNPS:&nbsp; GIS Output</title>
+</head>
+
+<body>
+
+<hr>
+
+<p align="center"><strong><big><big>GEOnet Names Server</big></big></strong></p>
+
+<p align="center"><strong><big><big>GNS</big></big></strong></p>
+
+<p align="center"><strong><big><big>Geographic Information Systems (GIS) Compatible Output
+Format</big></big></strong></p>
+
+<hr>
+
+<p><big><u>Note</u>:</big> The data format is <strong>tab-delimited text</strong>. </p>
+
+<hr>
+
+<p align="center"><strong><big><big><big>Field Name and Description</big></big></big></strong></p>
+
+<table border="1" cellpadding="5" width="100%" cellspacing="1">
+  <tr>
+    <td valign="top"><strong><big><big>Field Name</big></big></strong></td>
+    <td valign="top"><strong><big><big>Field Description</big></big></strong></td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>RC</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Region Code</font></strong>.&nbsp; A code
+    that determines the character mapping used in the <a href="#FULL_NAME">Full_Name</a> field
+    (refer to <a href="regions.pdf"><strong>REGIONS.PDF</strong></a> for character mapping):<br>
+    1 = Western Europe/Americas;<br>
+    2 = Eastern Europe;<br>
+    3 = Africa/Middle East;<br>
+    4 = Central Asia;<br>
+    5 = Asia/Pacific;<br>
+    6 = Vietnam. </td>
+  </tr>
+  <tr>
+    <td valign="top"><strong><a name="UFI">UFI</a></strong></td>
+    <td valign="top"><strong><font color="#FF0000">Unique Feature Identifier</font></strong>.&nbsp;
+    A number which uniquely identifies the feature.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>UNI</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Unique Name Identifier</font></strong>.&nbsp;
+    A number which uniquely identifies a name.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>LAT</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Latitude</font></strong> of the feature in
+    ± decimal degree (WGS84):<br>
+    no sign (+) = North;<br>
+    negative sign (-) = South.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>LONG</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Longitude</font></strong> of the feature in
+    ± decimal degree (WGS84):<br>
+    no sign (+) = East;<br>
+    negative sign (-) = West.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>DMS_LAT</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Latitude</font></strong> of the feature in
+    ± degrees, minutes, and seconds (WGS84):<br>
+    no sign (+) = North;<br>
+    negative sign (-) = South.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>DMS_LONG</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Longitude</font></strong> of the feature in
+    ± degrees, minutes, and seconds (WGS84):<br>
+    no sign (+) = East;<br>
+    negative sign (-) = West.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>UTM</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Universal Transverse Mercator</font></strong>
+    coordinate grid reference.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>JOG</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Joint Operations Graphic</font></strong>
+    reference.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>FC</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Feature Classification</font></strong>:<br>
+    A = Administrative region;<br>
+    P = Populated place;<br>
+    V = Vegetation;<br>
+    L = Locality or area;<br>
+    U = Undersea;<br>
+    R = Streets, highways, roads, or railroad;<br>
+    T = Hypsographic;<br>
+    H = Hydrographic;<br>
+    S = Spot feature.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>DSG</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Feature Designation Code</font></strong>.&nbsp;
+    A two to five-character code used to identify the type of feature a name is applied to.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>PC</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Populated Place Classification</font></strong>.&nbsp;
+    A graduated numerical scale denoting the relative importance of a populated place.&nbsp;
+    The scale ranges from 1,&nbsp; relatively high, to 5, relatively low.&nbsp; The scale
+    could also include NULL (no value) as a value for populated places with unknown or
+    undetermined classification.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>CC1</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Primary Country Code</font></strong>.&nbsp;
+    A two alphabetic character code uniquely identifying a geopolitical entity (countries,
+    dependencies, and areas of special sovereignty).</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>ADM1</strong></td>
+    <td valign="top"><strong><font color="#FF0000">First-order administrative division</font></strong>.&nbsp;
+    A two alphanumeric character code uniquely identifying a primary administrative division
+    of a country, such as a state in the United States.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>ADM2</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Second-order administrative division</font></strong>.&nbsp;
+    A subdivision of a first-order administrative division, such as a county in the United
+    States.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>DIM</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Dimension</font></strong>.&nbsp; Usually
+    used to display elevation or population data.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>CC2</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Secondary Country Code</font></strong>.&nbsp;
+    A two alphabetic character code uniquely identifying the country code of a particular name
+    if different than that of the feature.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>NT</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Name Type</font></strong>:<br>
+    C = Conventional;<br>
+    D = Not verified;<br>
+    N = Native;<br>
+    V = Variant or alternate.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>LC</strong></td>
+    <td valign="top"><strong><font color="#FF0000">Language Code</font></strong>.&nbsp; A two
+    alphabetic character code uniquely identifying a language of&nbsp; a country if multiple
+    official languages are used.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>SHORT_FORM</strong></td>
+    <td valign="top">A specific part of the name that could substitute for the full name.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>GENERIC</strong></td>
+    <td valign="top">The descriptive part of the full name (does not apply to populated place
+    names).</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>SORT_NAME</strong></td>
+    <td valign="top">A form of the full name which allows for easy sorting of the name into
+    alpha-numeric sequence.&nbsp; It is comprised of the specific name, generic name, and any
+    articles or prepositions. This field is all upper case with spaces, diacritics, and
+    hyphens removed and numbers are substituted with lower case alphabetic characters.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong><a name="FULL_NAME">FULL_NAME</a></strong></td>
+    <td valign="top">The full name is a complete name which identifies the named
+    feature.&nbsp; It is comprised of&nbsp; the specific name, generic name, and any articles
+    or prepositions (refer to <a href="regions.pdf"><strong>REGIONS.PDF</strong></a> for
+    character mapping).</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>FULL_NAME_ND</strong></td>
+    <td valign="top">Same as the full name but the diacritics and special characters are
+    substituted with Roman characters (refer to <a href="regions.pdf"><strong>REGIONS.PDF</strong></a>
+    for character mapping). &nbsp; <strong>ND = No Diacritics / Stripped Diacritics</strong>.</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>MODIFY_DATE</strong></td>
+    <td valign="top">The date a new feature was added or any part of an existing feature was
+    modified (YYYY-MM-DD).</td>
+  </tr>
+</table>
+
+<p><a HREF="index.html">GEOnet Home Page</a></p>
+
+<hr>
+
+<p>Point of Contact: <a href="mailto:geonames@nima.mil">GeoNames</a></p>
+
+<p>Last Updated: 25 September 2003 </p>
+</body>
+</html>
