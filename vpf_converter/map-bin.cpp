@@ -133,6 +133,20 @@ void readFile(QString inFileName, Q_UINT16 SecNumber)
                   case GLACIER:
 		    //                  case PACK_ICE:
                   case FOREST:
+                  // Lufträume
+                  case AIR_A:
+                  case AIR_B:
+                  case AIR_C:
+                  case AIR_D:
+                  case AIR_E_LOW:
+                  case AIR_E_HIGH:
+                  case AIR_F:
+                  case CONTROL_C:
+                  case CONTROL_D:
+                  case DANGER:
+                  case LOW_FLIGHT:
+                  case RESTRICTED:
+                  case TMZ:
                     element_type = 3;
                     break;
                   case BORDER:
@@ -204,6 +218,22 @@ void readFile(QString inFileName, Q_UINT16 SecNumber)
 		    case BORDER:
                     outStream << (Q_INT8) sort;
                     break;
+                    // Lufträume
+                    case AIR_A:
+                    case AIR_B:
+                    case AIR_C:
+                    case AIR_D:
+                    case AIR_E_LOW:
+                    case AIR_E_HIGH:
+                    case AIR_F:
+                    case CONTROL_C:
+                    case CONTROL_D:
+                    case DANGER:
+                    case LOW_FLIGHT:
+                    case RESTRICTED:
+                    case TMZ:                    
+		      outStream << (QString) name;
+		      break;                    
 		    case AERIAL_CABLE:
 		    case RAILWAY:
 		    case RAILWAY_D:
