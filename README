@@ -36,4 +36,8 @@ sources:
 
   - vpf-importer:
        imports the Vmap0 data into an ascii readable format
+       
+  - Welt2000_airfield_converter
+       imports airfield data from Michael Meiers Welt2000 data base and
+       generates output files in KFLOG/Cumulus format
 
