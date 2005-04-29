@@ -268,7 +268,13 @@ int main(int argc, char *argv[])
       else
 	{
 	  afField = true;
-	  icao = line.mid( 24, 4 );
+	  icao = line.mid( 24, 4 ).stripWhiteSpace();
+
+	  if( line.mid( 20, 4 ) == "GLD#" )
+            {
+              // other possibility for a glider field with ICAO signature
+              glField = true;
+            }       
 	}
 
       // Airfield name
