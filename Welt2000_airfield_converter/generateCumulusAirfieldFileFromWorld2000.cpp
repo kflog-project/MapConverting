@@ -191,6 +191,10 @@ int main(int argc, char *argv[])
   // BERSC1 BERLIN SCHOENFEL#EDDBC300072512002  49N522243E0133114DEO
   // BERTE1 BERLIN TEMPELHOF#EDDIC208092711810  52N522825E0132406DEO
 
+  // Other marking of glider fields with icao sign is possible
+  // Thanks to Hendrik Hoeth for the hint ;)
+  // CHICG1 CHICAGO GLD  GLD#IL59G   09271233   183N412555W0881445USK
+
   while( ! inFile.atEnd() )
     {
       bool ok;
