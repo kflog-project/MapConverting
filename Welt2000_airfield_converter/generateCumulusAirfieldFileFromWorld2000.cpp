@@ -1,6 +1,6 @@
 /************************************************************************
 **
-**   Copyright (c): 2005 by Axel Pauli, axel@kflog.org
+**   Author: (C) 2005 by Axel Pauli, axel@kflog.org
 **
 **   This file is distributed under the terms of the General Public
 **   Licence. See the file COPYING for more information.
@@ -483,8 +483,8 @@ int main(int argc, char *argv[])
 	{
 	  cerr << "Line " << lineNo
 	       << ": missing or wrong frequency"
-	       << ", set value to zero!" << endl;
-	  frequency = "000.000";
+	       << ", set value to 000.00!" << endl;
+	  frequency = "000.00";
 	}
 
       // check, what has to be appended as last digit
@@ -505,8 +505,8 @@ int main(int argc, char *argv[])
 	{
 	  cerr << "Line " << lineNo 
 	       << ": missing or wrong runway direction"
-	       << ", set value to zero!" << endl;
-	  rwDir = 0;
+	       << ", set value to 255!" << endl;
+	  rwDir = 255;
 	}
       
       // runway length in meters, must be multiplied by 10
