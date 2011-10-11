@@ -1,0 +1,11 @@
+$Id$
+
+To build the tool call:
+
+qmake cityNamesGns.pro
+
+and then:
+
+make
+
+After that the tool should be built.
