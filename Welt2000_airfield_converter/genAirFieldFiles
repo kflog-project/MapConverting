@@ -1,9 +1,0 @@
-#!/bin/sh
-
-countries="at al ar au be bg br ca ch cl cz de dk ee es fi fr gr hr hu ie it lt lu lv mt mx na nl no nz pl pt ro ru se si sk tr uk us yu zw za"
-
-for x in $countries
-do
-	#echo country $x
-	./generateCumulusAirfieldFileFromWorld2000 -i WELT2000.TXT -o $x.kfl -f $x
-done
