@@ -12,7 +12,7 @@
  *  http://www.geonames.org/
  *
  *  All entries in the file are tabulator separated. The advantage of this file
- *  is, that beside the location names and additional attribute is available
+ *  is, that beside the location names an additional attribute is available
  *  which describes the number of inhabitants. By using this attribute as
  *  filter criterion, the found city name is often the right one.
  *
