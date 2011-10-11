@@ -11,6 +11,7 @@
  */
 
 #include <cmath>
+#include <unistd.h>
 #include <cstdlib>
 #include <QtGui>
 
@@ -45,6 +46,12 @@ int main(int argc, char *argv[])
   QString newMap = "/home/axel/MapData/new/";
   QString cityDict = "allCountries2.dic";
   QString cityReplaceTool = "./cityReplace";
+
+  if( access( cityReplaceTool.toLatin1().data(), X_OK ) == -1 )
+    {
+      qWarning() << "Cannot access City replace tool:" << cityReplaceTool;
+      return -1;
+    }
 
   // Europa: 72N-34N, 24W-32E
   // Südafrika: 36S-16S, 10E-36E
