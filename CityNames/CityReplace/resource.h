@@ -12,7 +12,7 @@
 **   This file is distributed under the terms of the General Public
 **   Licence. See the file COPYING for more information.
 **
-**   $Id: resource.h 4521 2011-01-12 21:40:26Z axel $
+**   $Id$
 **
 ***********************************************************************/
 
