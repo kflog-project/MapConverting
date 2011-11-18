@@ -1,0 +1,10 @@
+# $Id$
+
+1. Qt 4.7 must be installed, to build this tool.
+
+2. Call 'qmake polylineReplacer.pro', that creates a Makefile.
+
+3. Call 'make'
+
+4. call './polylineReplacer', a help is displayed.
+
