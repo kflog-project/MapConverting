@@ -15,12 +15,6 @@ $Id$
 The tools in this repository are used to create KFLog maps from different
 sources:
 
-  - dafifImport:
-       this converter is used to create airspaces and airports out of the
-       DAFIF database from the US airforce.
-
-       a mysql database is used to hold the imported data
-
   - GNS:
        this converter creates citynames and other pointdata from the GNS
        database
@@ -41,4 +35,8 @@ sources:
   - CityNames: (Axel Pauli)
        4 different tools, which are used to update the city names of the KFLog
        map data.
+
+  - PolylineReplace: (Axel Pauli)
+       2 different tools, which are used to replace polylines in map
+       tiles. It can be used for the map types motorway, rail and road.
 
