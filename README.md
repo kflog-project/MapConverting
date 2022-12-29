@@ -1,4 +1,4 @@
 MapConverting
 =============
 
-KFLog map convertion tools
+KFLog map convertion tools and storage of landscape files.
